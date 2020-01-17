@@ -1,2 +1,19 @@
 \chapter{Matrix-Vector Multiplication}\label{chap:matrix-vector-multiplication}
-We interpret a matrix-vector multiplication \(\mathbf{b}=A\mathbf{x}\) as follows: if \(\mathbf{b}=A\mathbf{x}\), then \(\mathbf{b}\) is a linear combination of columns of \(A\).
+We interpret a matrix-vector multiplication \(\mathbf{b}=A\mathbf{x}\) as follows: if \(\mathbf{b}=A\mathbf{x}\), then \(\mathbf{b}\) is a linear combination of columns of \(A\). In particular, letting \(\mathbf{a_i}\) denote the \(i^{\text{th}}\) column of \(A\) and \(x_i\) the \(i^{\text{th}}\) element of \(\mathbf{x}\), we can write this equation as 
+\begin{align*}b 
+    &= \begin{bmatrix}\mathbf{a_1} \mid \mathbf{a_2} \mid \hdots \mid \mathbf{a_n}\end{bmatrix}\begin{bmatrix}x_1\\x_2\\\vdots\\x_n\end{bmatrix}\\
+    &= x_1\mathbf{a_1}+x_2\mathbf{a_2}+\hdots+x_n\mathbf{a_n}
+\end{align*}
+
+A matrix product \(B=AC\) can be interpreted as: each column of \(B\) is a linear combination of the columns of \(A\). Write:
+\begin{align*}
+AC &= \underbrace{\begin{bmatrix}a_{11} & a_{12} & \hdots & a_{1n}\\a_{21} & a_{22} & \hdots & a_{2n}\\\vdots & \vdots & \ddots & \vdots\\a_{m1} & a_{m2} & \hdots & a_{mn}\end{bmatrix}}_{m\times n}\underbrace{\begin{bmatrix}c_{11} & c_{12} & \hdots & c_{1k}\\c_{21} & c_{22} & \hdots & a_{2k}\\\vdots & \vdots & \ddots & \vdots\\c_{n1} & c_{n2} & \hdots & c_{nk}\end{bmatrix}}_{n\times k}\\
+B  &= \underbrace{\begin{bmatrix}\mathbf{b_1} \mid \mathbf{b_2} \mid \hdots \mid \mathbf{b_k}\end{bmatrix}}_{m\times k}
+\end{align*}
+
+Then column \(\mathbf{b_i}\) is just 
+\begin{align*}\mathbf{b_i}
+    &= \begin{bmatrix}a_{11}c_{1i} + a_{12}c_{2i} + \hdots + a_{1n}c_{ni}\\a_{21}c_{1i} + a_{22}c_{2i} + \hdots + a_{2n}c_{ni}\\\vdots\\a_{m1}c_{1i} + a_{m2}c_{2i} + \hdots + a_{mn}c_{ni}\end{bmatrix}\\
+    &= c_{1i}\begin{bmatrix}a_{11}\\a_{21}\\\vdots\\a_{m1}\end{bmatrix} + c_{2i}\begin{bmatrix}a_{12}\\a_{22}\\\vdots\\a_{m2}\end{bmatrix} + \hdots + c_{ni}\begin{bmatrix}a_{1n}\\a_{2n}\\\vdots\\a_{mn}\end{bmatrix}\\
+    &= c_{1i}\mathbf{a_1} + c_{2i}\mathbf{a_2} + \hdots + c_{ni}\mathbf{a_n}
+\end{align*}

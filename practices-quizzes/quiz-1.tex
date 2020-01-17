@@ -1,7 +1,57 @@
 \section*{Quiz 1}\label{sec:quiz-1}
 \begin{enumerate}
 \item Given a matrix that is both triangular and unitary, is it non-diagonal?
+\begin{solution}
+    A triangular, unitary matrix must be diagonal. To see this, consider an upper-triangular, normal matrix\footnote{A normal matrix is one which satisfies \(AA^*=A^*A\). Clearly, every unitary matrix is normal.}, \(A\). Write \begin{align*}A&=\begin{bmatrix}a_{11} & a_{12} & a_{13} & \hdots & a_{1n}\\0 & a_{22} & a_{23} & \hdots & a_{2n}\\0 & 0 & a_{33} & \hdots & a_{3n}\\\vdots & \vdots & \vdots & \ddots & \vdots\\0 & 0 & 0 & \hdots & a_{nn}\end{bmatrix}\\A^*&=\begin{bmatrix}\overline{a_{11}} & 0 & 0 & \hdots & 0\\\overline{a_{12}} & \overline{a_{22}} & 0 & \hdots & 0\\\overline{a_{13}} & \overline{a_{23}} & \overline{a_{33}} & \hdots & 0\\\vdots & \vdots & \vdots & \ddots & \vdots\\\overline{a_{1n}} & \overline{a_{2n}} & \overline{a_{3n}} & \hdots & \overline{a_{nn}}\end{bmatrix}\end{align*}
+
+    Consider the \(1^{\text{st}}\) diagonal element of \(AA^*\), writen explicitly:
+
+    \[(AA^*)_{11}=a_{11}\overline{a_{11}}+a_{12}\overline{a_{12}}+\hdots + a_{1n}\overline{a_{1n}}\]
+
+    And similarly for \(A^*A\):
+
+    \[(A^*A)_{11}=\overline{a_{11}}a_{11}\] These two values must be equal, forcing \[a_{12}\overline{a_{12}}+\hdots + a_{1n}\overline{a_{1n}}=0\] However, \(z\overline{z}=|z|\) is strictly non-negative, hence these values must be identically 0. In particular, this means the first row of \(A\) is 
+
+    \[\begin{bmatrix}a_{11} & 0 & 0 & \hdots & 0\end{bmatrix}\] The same argument applies for each row of the matrix \(A\). 
+        
+        If \(A\) is lower-triangular, then \(B=A^*\) is upper-triangular, and \(B\) is diagonal, by the above argument, hence \(A\) is diagonal.
+\end{solution}
 \item Can the absolute value of an eigenvalue of a unitary matrix be 1?
-\item If \(W\) is an arbitrary nonsingular matrix, then is the function \(\left\Vert.\right\Vert_w\) defined by \(\left\Vert\mathbf{x}\right\Vert_w=\left\Vert W\mathbf{x}\right\Vert\) (weightd norm) a vector norm?
+\begin{solution}
+    Clearly, the answer is yes. Take \(A=I_n\) and note that it has characteristic equation \((1-\lambda)^n=0\), which has eigenvalues of 1. However, the stronger result is that \textit{all} eigenvalues of a unitary matrix have modulus 1:
+    
+Consider some unitary matrix \(A\), i.e., \(A\) satisfies \(AA^*=A^*A=I\), and any eigenvalue, \(\lambda\). We have \[A\mathbf{x}=\lambda\mathbf{x}\] for some vector \(\mathbf{x}\). Taking the conjugate transpose of both sides gives \[\mathbf{x}^*A^*=\overline{\lambda}\mathbf{x}^*\] Multiplying these equations yields \begin{align*}\left(\mathbf{x}^*A^*\right)\left(A\mathbf{x}\right)&=\left(\overline{\lambda}\mathbf{x}^*\right)\left(\lambda\mathbf{x}\right)\\\mathbf{x}^*\left(A^*A\right)\mathbf{x}&=\lambda\overline{\lambda}\mathbf{x}^*\mathbf{x}\\\mathbf{x}^*\mathbf{x}&=\lambda\overline{\lambda}\mathbf{x}^*\mathbf{x}\\\end{align*}This forces \(\lambda\overline{\lambda}=|\lambda|=1\).
+\end{solution}
+\item If \(W\) is an arbitrary nonsingular matrix, then is the function \(\left\Vert.\right\Vert_W\) defined by \(\left\Vert\mathbf{x}\right\Vert_W=\left\Vert W\mathbf{x}\right\Vert\) (weighted norm) a vector norm?
+\begin{solution}
+    In order for \(\left\Vert.\right\Vert_W\) to be a vector norm, it must satisfy:
+    \begin{enumerate}[1.]
+        \item \(\left\Vert\mathbf{u} + \mathbf{v}\right\Vert_W \leq \left\Vert\mathbf{u}\right\Vert_W + \left\Vert\mathbf{v}\right\Vert_W\) (triangle inequality)
+        \item \(\left\Vert c\mathbf{u}\right\Vert_W=|c|\left\Vert\mathbf{u}\right\Vert_W\) (scalable/homogenous)
+        \item if \(\left\Vert \mathbf{u}\right\Vert_W = 0\) then \(\mathbf{u}=0\) (positivity)
+    \end{enumerate}
+    2 and 3 are obvious. To see 1, note that 
+    \begin{align*}\left\Vert\mathbf{u} + \mathbf{v}\right\Vert_W
+        &=    \left\Vert W\left(\mathbf{u} + \mathbf{v}\right)\right\Vert\\
+        &=    \left\Vert W\mathbf{u} + W\mathbf{v}\right\Vert\\
+        &\leq \left\Vert W\mathbf{u}\right\Vert + \left\Vert W\mathbf{v}\right\Vert\text{ by the triangle inequality}\\
+        &=    \left\Vert \mathbf{u}\right\Vert_W + \left\Vert \mathbf{v}\right\Vert_W
+    \end{align*}
+    Thus, \(\left\Vert.\right\Vert_W\) is a vector norm.
+\end{solution}
 \item If \(E\) is an outer product \(E=\mathbf{u}\mathbf{v}^*\), then \(\left\Vert E \right\Vert_2 = \left\Vert \mathbf{u} \right\Vert_2 \left\Vert \mathbf{v} \right\Vert_2\). Is the same true for the Frobenius norm, i.e., \(\left\Vert E \right\Vert_F=\left\Vert \mathbf{u} \right\Vert_F \left\Vert \mathbf{v} \right\Vert_F\)?
+\begin{solution}
+Write \(\mathbf{u}=\begin{bmatrix}u_1 \\ u_2 \\ \vdots \\ u_n\end{bmatrix}\) and \(\mathbf{v}=\begin{bmatrix}v_1 \\ v_2 \\ \vdots \\ v_n\end{bmatrix}\). Then \begin{align*}E
+    &= \mathbf{u}\mathbf{v}^*\\
+    &= \begin{bmatrix}u_1 \\ u_2 \\ \vdots \\ u_n\end{bmatrix} \begin{bmatrix}\overline{v_1} & \overline{v_2} & \hdots & \overline{v_n}\end{bmatrix}\\
+    &= \begin{bmatrix}u_1\overline{v_1} & u_1\overline{v_2} & \hdots & u_1\overline{v_n}\\u_2\overline{v_1} & u_2\overline{v_2} & \hdots & u_2\overline{v_n}\\\vdots & \vdots & \ddots & \vdots \\ u_n\overline{v_1} & u_n\overline{v_2} & \hdots & u_n\overline{v_n}\end{bmatrix}
+\end{align*}
+We therefore have \begin{align*}\left\Vert E \right\Vert_F&=\sqrt{\sum_{i=1}^n\sum_{j=1}^n|u_i\overline{v_j}|^2}\\&=\sqrt{\sum_{i=1}^n\sum_{j=1}^n|u_i|^2|\overline{v_j}|^2}\\&=\sqrt{\sum_{i=1}^n\sum_{j=1}^n|u_i|^2|v_j|^2}\end{align*} And further
+\begin{align*}\left\Vert \mathbf{u} \right\Vert_F \left\Vert \mathbf{v} \right\Vert_F
+    &= \left(\sqrt{\sum_{i=1}^n|u_i|^2}\right)\left(\sqrt{\sum_{i=1}^n|v_i|^2}\right)\\
+    &= \sqrt{\left(\sum_{i=1}^n|u_i|^2\right)\left(\sum_{i=1}^n|v_i|^2\right)}\\
+    &= \sqrt{\sum_{i=1}^n\sum_{j=1}^n|u_i|^2|v_j|^2}\\
+    &= \left\Vert E \right\Vert_F
+\end{align*}
+\end{solution}
 \end{enumerate}
