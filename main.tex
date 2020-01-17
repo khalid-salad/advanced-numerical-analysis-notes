@@ -1,0 +1,66 @@
+\documentclass[a4paper]{book}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage{amsthm, amsfonts, xpatch}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{algpseudocode, algorithm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{tabu}
+\usepackage{xcolor}
+\usepackage{tikz, tikz-qtree}
+\usetikzlibrary{arrows, automata, positioning}
+\usepackage{graphviz}
+\usepackage{subfig}
+\usepackage{blindtext}
+\usepackage{cancel}
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{multirow, multicol}
+\usepackage{physics}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\setlength{\marginparwidth}{2cm}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{booktabs}
+
+\newenvironment{solution}{\begin{proof}[\textnormal{\textbf{Solution}}]}{\end{proof}}
+\newenvironment{exercise}[1]{\begin{proof}[\textnormal{\textbf{Exercise #1:}}]\phantom{\qedhere}}{\end{proof}}
+
+\renewcommand\thesubfigure{\arabic{subfigure}}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{lemma}{Lemma}
+
+\begin{document}
+\begin{titlepage}\pagenumbering{gobble}
+	\centering
+	{\scshape\LARGE University of Houston\par}
+	\vspace{1cm}
+	{\scshape\Large Notes \par}
+	\vspace{1.5cm}
+	{\huge\bfseries COSC 6364 \par}
+	{\huge\bfseries Advanced Numerical Analysis \par}
+	\vspace{0.5cm}
+	{\large\bfseries Panruo Wu\par}
+	\vspace{1cm}
+	{\Large\textit{Khalid Hourani}}
+	\vspace{0.5cm}
+	{\large \par} %date
+	\vfill
+	% Bottom of the page
+\end{titlepage}
+
+\tableofcontents
+\newpage\pagenumbering{arabic}
+
+\input{matrix-vector-multiplication.tex}
+\input{practices-quizzes/quizzes.tex}
+\end{document}
