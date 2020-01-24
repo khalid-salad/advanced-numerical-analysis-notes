@@ -20,38 +20,38 @@
 \begin{solution}
     Clearly, the answer is yes. Take \(A=I_n\) and note that it has characteristic equation \((1-\lambda)^n=0\), which has eigenvalues of 1. However, the stronger result is that \textit{all} eigenvalues of a unitary matrix have modulus 1:
     
-Consider some unitary matrix \(A\), i.e., \(A\) satisfies \(AA^*=A^*A=I\), and any eigenvalue, \(\lambda\). We have \[A\mathbf{x}=\lambda\mathbf{x}\] for some vector \(\mathbf{x}\). Taking the conjugate transpose of both sides gives \[\mathbf{x}^*A^*=\overline{\lambda}\mathbf{x}^*\] Multiplying these equations yields \begin{align*}\left(\mathbf{x}^*A^*\right)\left(A\mathbf{x}\right)&=\left(\overline{\lambda}\mathbf{x}^*\right)\left(\lambda\mathbf{x}\right)\\\mathbf{x}^*\left(A^*A\right)\mathbf{x}&=\lambda\overline{\lambda}\mathbf{x}^*\mathbf{x}\\\mathbf{x}^*\mathbf{x}&=\lambda\overline{\lambda}\mathbf{x}^*\mathbf{x}\\\end{align*}This forces \(\lambda\overline{\lambda}=|\lambda|=1\).
+Consider some unitary matrix \(A\), i.e., \(A\) satisfies \(AA^*=A^*A=I\), and any eigenvalue, \(\lambda\). We have \[A\mathbf{x}=\lambda\mathbf{x}\] for some vector \(\mathbf{x}\). Taking the conjugate transpose of both sides gives \[\mathbf{x}^*A^*=\overline{\lambda}\mathbf{x}^*\] Multiplying these equations yields \begin{align*}\left(\mathbf{x}^*A^*\right)\left(A\mathbf{x}\right)&=\left(\overline{\lambda}\mathbf{x}^*\right)\left(\lambda\mathbf{x}\right)\\\mathbf{x}^*\left(A^*A\right)\mathbf{x}&=\lambda\overline{\lambda}\mathbf{x}^*\mathbf{x}\\\mathbf{x}^*\mathbf{x}&=\lambda\overline{\lambda}\mathbf{x}^*\mathbf{x}\\\end{align*}This forces \(\lambda\overline{\lambda}=\abs{\lambda}^2=1\).
 \end{solution}
-\item If \(W\) is an arbitrary nonsingular matrix, then is the function \(\left\Vert.\right\Vert_W\) defined by \(\left\Vert\mathbf{x}\right\Vert_W=\left\Vert W\mathbf{x}\right\Vert\) (weighted norm) a vector norm?
+\item If \(W\) is an arbitrary nonsingular matrix, then is the function \(\norm{.}_W\) defined by \(\norm{\mathbf{x}}_W=\norm{W\mathbf{x}}\) (weighted norm) a vector norm?
 \begin{solution}
-    In order for \(\left\Vert.\right\Vert_W\) to be a vector norm, it must satisfy:
+    In order for \(\norm{.}_W\) to be a vector norm, it must satisfy:
     \begin{enumerate}[1.]
-        \item \(\left\Vert\mathbf{u} + \mathbf{v}\right\Vert_W \leq \left\Vert\mathbf{u}\right\Vert_W + \left\Vert\mathbf{v}\right\Vert_W\) (triangle inequality)
-        \item \(\left\Vert c\mathbf{u}\right\Vert_W=|c|\left\Vert\mathbf{u}\right\Vert_W\) (scalable/homogenous)
-        \item if \(\left\Vert \mathbf{u}\right\Vert_W = 0\) then \(\mathbf{u}=0\) (positivity)
+        \item \(\norm{\mathbf{u} + \mathbf{v}}_W \leq \norm{\mathbf{u}}_W + \norm{\mathbf{v}}_W\) (triangle inequality)
+        \item \(\norm{c\mathbf{u}}_W=\abs{c}\norm{\mathbf{u}}_W\) (scalable/homogenous)
+        \item if \(\norm{\mathbf{u}}_W = 0\) then \(\mathbf{u}=\mathbf{0}\) (positivity)
     \end{enumerate}
     2 and 3 are obvious. To see 1, note that 
-    \begin{align*}\left\Vert\mathbf{u} + \mathbf{v}\right\Vert_W
-        &=    \left\Vert W\left(\mathbf{u} + \mathbf{v}\right)\right\Vert\\
-        &=    \left\Vert W\mathbf{u} + W\mathbf{v}\right\Vert\\
-        &\leq \left\Vert W\mathbf{u}\right\Vert + \left\Vert W\mathbf{v}\right\Vert\text{ by the triangle inequality}\\
-        &=    \left\Vert \mathbf{u}\right\Vert_W + \left\Vert \mathbf{v}\right\Vert_W
+    \begin{align*}\norm{\mathbf{u} + \mathbf{v}}_W
+        &=    \norm{W\left(\mathbf{u} + \mathbf{v}\right)}\\
+        &=    \norm{W\mathbf{u} + W\mathbf{v}}\\
+        &\leq \norm{W\mathbf{u}} + \norm{W\mathbf{v}}\text{ by the triangle inequality}\\
+        &=    \norm{\mathbf{u}}_W + \norm{\mathbf{v}}_W
     \end{align*}
-    Thus, \(\left\Vert.\right\Vert_W\) is a vector norm.
+    Thus, \(\norm{.}_W\) is a vector norm.
 \end{solution}
-\item If \(E\) is an outer product \(E=\mathbf{u}\mathbf{v}^*\), then \(\left\Vert E \right\Vert_2 = \left\Vert \mathbf{u} \right\Vert_2 \left\Vert \mathbf{v} \right\Vert_2\). Is the same true for the Frobenius norm, i.e., \(\left\Vert E \right\Vert_F=\left\Vert \mathbf{u} \right\Vert_F \left\Vert \mathbf{v} \right\Vert_F\)?
+\item If \(E\) is an outer product \(E=\mathbf{u}\mathbf{v}^*\), then \(\norm{E}_2 = \norm{\mathbf{u}}_2\norm{\mathbf{v}}_2\). Is the same true for the Frobenius norm, i.e., \(\norm{E}_F=\norm{\mathbf{u}}_F \norm{\mathbf{v}}_F\)?
 \begin{solution}
 Write \(\mathbf{u}=\begin{bmatrix}u_1 \\ u_2 \\ \vdots \\ u_n\end{bmatrix}\) and \(\mathbf{v}=\begin{bmatrix}v_1 \\ v_2 \\ \vdots \\ v_n\end{bmatrix}\). Then \begin{align*}E
     &= \mathbf{u}\mathbf{v}^*\\
     &= \begin{bmatrix}u_1 \\ u_2 \\ \vdots \\ u_n\end{bmatrix} \begin{bmatrix}\overline{v_1} & \overline{v_2} & \hdots & \overline{v_n}\end{bmatrix}\\
     &= \begin{bmatrix}u_1\overline{v_1} & u_1\overline{v_2} & \hdots & u_1\overline{v_n}\\u_2\overline{v_1} & u_2\overline{v_2} & \hdots & u_2\overline{v_n}\\\vdots & \vdots & \ddots & \vdots \\ u_n\overline{v_1} & u_n\overline{v_2} & \hdots & u_n\overline{v_n}\end{bmatrix}
 \end{align*}
-We therefore have \begin{align*}\left\Vert E \right\Vert_F&=\sqrt{\sum_{i=1}^n\sum_{j=1}^n|u_i\overline{v_j}|^2}\\&=\sqrt{\sum_{i=1}^n\sum_{j=1}^n|u_i|^2|\overline{v_j}|^2}\\&=\sqrt{\sum_{i=1}^n\sum_{j=1}^n|u_i|^2|v_j|^2}\end{align*} And further
-\begin{align*}\left\Vert \mathbf{u} \right\Vert_F \left\Vert \mathbf{v} \right\Vert_F
+We therefore have \begin{align*}\norm{E}_F&=\sqrt{\sum_{i=1}^n\sum_{j=1}^n|u_i\overline{v_j}|^2}\\&=\sqrt{\sum_{i=1}^n\sum_{j=1}^n|u_i|^2|\overline{v_j}|^2}\\&=\sqrt{\sum_{i=1}^n\sum_{j=1}^n|u_i|^2|v_j|^2}\end{align*} And further
+\begin{align*}\norm{\mathbf{u}}_F \norm{\mathbf{v}}_F
     &= \left(\sqrt{\sum_{i=1}^n|u_i|^2}\right)\left(\sqrt{\sum_{i=1}^n|v_i|^2}\right)\\
     &= \sqrt{\left(\sum_{i=1}^n|u_i|^2\right)\left(\sum_{i=1}^n|v_i|^2\right)}\\
     &= \sqrt{\sum_{i=1}^n\sum_{j=1}^n|u_i|^2|v_j|^2}\\
-    &= \left\Vert E \right\Vert_F
+    &= \norm{E}_F
 \end{align*}
 \end{solution}
 \end{enumerate}
