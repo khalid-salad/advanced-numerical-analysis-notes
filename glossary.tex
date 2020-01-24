@@ -1,0 +1,99 @@
+\makeglossaries
+ 
+\newglossaryentry{outer product}
+{
+        name=outer product,
+        description={The matrix produced by the product of a column vector and its transpose, i.e., \(\mathbf{u}\mathbf{v}^*\)}
+}
+ 
+\newglossaryentry{upper triangular matrix}
+{
+        name=upper triangular matrix,
+        description={A matrix where all entries below the diagonal are zero, i.e., \(U = \begin{bmatrix}
+                u_{1,1} & u_{1,2} & u_{1,3} & \ldots &   u_{1,n} \\
+                      0 & u_{2,2} & u_{2,3} & \ldots &   u_{2,n} \\
+                      0 & 0       &  \ddots & \ddots &    \vdots \\
+                      0 & 0       & 0       & \ddots & u_{n-1,n} \\
+                      0 & 0       & 0       & 0      &   u_{n,n}
+              \end{bmatrix}\)}
+}
+ 
+\newglossaryentry{lower triangular matrix}
+{
+        name=lower triangular matrix,
+        description={A matrix where all entries above the diagonal are zero, i.e., \(L = \begin{bmatrix}
+                \ell_{1,1} &  0         & 0      & 0            &          0 \\
+                \ell_{2,1} & \ell_{2,2} & 0      & 0            &          0 \\
+                \ell_{3,1} & \ell_{3,2} & \ddots & 0            &          0 \\
+                    \vdots &     \vdots & \ddots &       \ddots &          0 \\
+                \ell_{n,1} & \ell_{n,2} & \ldots & \ell_{n,n-1} & \ell_{n,n}
+              \end{bmatrix}\)}
+}
+ 
+\newglossaryentry{range}
+{
+        name=range,
+        description={The set of all vectors that can be expressed as \(A\mathbf{x}\) for some \(\mathbf{x}\).}
+}
+
+\newglossaryentry{nullspace}
+{
+        name=nullspace,
+        description={The set of all vectors that satisfy \(A\mathbf{x}=\mathbf{0}\).}
+}
+
+\newglossaryentry{rank}
+{
+        name=rank,
+        description={The dimension of the vector space spanned by a matrix.}
+}
+
+\newglossaryentry{column rank}
+{
+        name=column rank,
+        description={The dimension of the vector space spanned by the columns of a matrix.}
+}
+
+\newglossaryentry{row rank}
+{
+        name=row rank,
+        description={The dimension of the vector space spanned by the rows of a matrix.}
+}
+
+\newglossaryentry{full rank}
+{
+        name=full rank,
+        description={An \(m\times n\) matrix has \textbf{full rank} when its rank is equal to \(\min\left(m, n\right)\).}
+}
+
+\newglossaryentry{singular}
+{
+        name=singular,
+        description={A matrix that has no inverse. Equivalently, a matrix with 0 determinant.}
+}
+
+\newglossaryentry{non-singular}
+{
+        name=non-singular,
+        description={A matrix that has an inverse. Equivalently, a matrix with non-zero determinant.}
+}
+
+\newglossaryentry{symmetric}
+{
+        name=symmetric,
+        description={A matrix \(A\) such that \(A=A^\text{T}\).}
+}
+
+\newglossaryentry{inner product}
+{
+        name=inner product,
+        description={The \textbf{inner product} of \(\mathbf{u}\) and \(\mathbf{v}\) is \(\mathbf{u}^{\text{T}}\mathbf{v}\). Also called the dot product.}
+}
+
+\newglossaryentry{orthogonal}
+{
+        name=orthogonal,
+        description={Two vectors \(\mathbf{u}\) and \(\mathbf{v}\) are \textbf{orthogonal} if their inner product is 0, i.e., if \(\mathbf{u}^{\text{T}}\mathbf{v}=0\).}
+}
+
+\newacronym{svd}{SVD}{Singular Value Decomposition}

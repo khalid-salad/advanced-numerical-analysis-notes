@@ -20,7 +20,6 @@
 %% Sets page size and margins
 \usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage{multirow, multicol}
-\usepackage{physics}
 
 %% Useful packages
 \usepackage{amsmath}
@@ -29,6 +28,8 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{booktabs}
+\usepackage[acronym, toc, nonumberlist, nopostdot]{glossaries}
+\input{glossary.tex}
 
 \newenvironment{solution}{\begin{proof}[\textnormal{\textbf{Solution}}]}{\end{proof}}
 \newenvironment{exercise}[1]{\begin{proof}[\textnormal{\textbf{Exercise #1:}}]\phantom{\qedhere}}{\end{proof}}
@@ -39,6 +40,9 @@
 \newtheorem{theorem}{Theorem}[subsection]
 \newtheorem{lemma}{Lemma}
 
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\setglossarystyle{altlist}
 \begin{document}
 \begin{titlepage}\pagenumbering{gobble}
 	\centering
@@ -63,4 +67,9 @@
 
 \input{matrix-vector-multiplication.tex}
 \input{practices-quizzes/quizzes.tex}
+
+\glsaddall
+\clearpage
+
+\printglossaries
 \end{document}
