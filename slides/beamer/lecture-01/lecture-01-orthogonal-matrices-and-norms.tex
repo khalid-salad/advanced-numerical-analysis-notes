@@ -1,0 +1,119 @@
+\documentclass[10pt]{beamer}
+\usefonttheme[onlymath]{serif}
+\usepackage[utf8]{inputenc}
+% \AtBeginSection[]
+% {
+%   \begin{frame}
+%     \frametitle{Table of Contents}
+%     \tableofcontents[currentsection]
+%   \end{frame}
+% }
+\usetheme{Berkeley}
+\usepackage{mleftright}
+\mleftright
+
+\usepackage{tikzsymbols}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\proj}[2]{\operatorname{proj}_{#2}\left(#1\right)}
+\newcommand{\dotprod}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\compconj}[1]{\overline{#1}}
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\bigO}[1]{\mathcal{O}\left(#1\right)}
+%Information to be included in the title page:
+
+\title[COSC6364 Adv. Numerical Analysis] %optional
+{COSC 6364 Adv. Numerical Analysis}
+
+\subtitle{Lecture 1: Matrix-Vector Multiplication; Orthogonal Vectors and Matrices}
+\author[Wu, Panruo] % (optional, for multiple authors)
+{P. ~Wu\inst{1}}
+
+\institute[VFU] % (optional)
+{
+  \inst{1}%
+  Computer Science\\
+  University of Houston
+  % \and
+  % \inst{2}%
+  % Faculty of Chemistry\\
+  % Very Famous University
+}
+
+\date[Spring 2020] % (optional)
+{Spring 2020\\To accompany the Numerical Linear Algebra book, Lectures 1 and 2.}
+
+\logo{\includegraphics[height=0.5cm]{../nsm-computer-science-primary.png}}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+  \frametitle{Table of Contents}
+  \tableofcontents
+\end{frame}
+
+\section{Matrix Vector Multiplication}
+\begin{frame}
+  \frametitle{Matrix Vector Multiplication}
+  \begin{itemize}
+    \item <2-> New interpretation that is essential for numerical linear algebra: \alert{if \(\vec{b} = A\vec{x}\), then \(\vec{b}\) is the linear combination of the columns of \(A\).}
+    \begin{itemize}
+      \item <3-> Let \(\vec{a}_i\) denote the \(i^{\text{th}}\) column of \(A\), \(m-\)vector. Then we can write
+        \onslide<4->{\[\vec{b} = X = \sum_{i=1}^nx_i\vec{a}_i\]}
+        \onslide<5->{The equation can be displayed schematically as follows:}
+        \begin{align*}\onslide<6->{\begin{bmatrix}b\end{bmatrix} 
+                  &= \begin{bmatrix}\vec{a}_1 & \vec{a}_2 & \hdots & \vec{a}_n\end{bmatrix} \begin{bmatrix}x_1\\x_2\\\vdots\\x_n\end{bmatrix}}\\
+                  \onslide<7->{&= x_1\vec{a}_1 + x_2\vec{a}_2 + \hdots + x_n\vec{a}_n}
+                \end{align*}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Matrix Vector Multiplication}
+  \begin{itemize}
+   \item <2-> Mathematician: \(A\vec{x} = \vec{b}\) means matrix \(A\) (representing linear transformation) acts on vector \(\vec{x}\) to produce \(\vec{b}\).
+   \item <3-> Numerical analyst: \(A\vec{x} = \vec{b}\) means vector \(\vec{x}\) acts on \(A\) to produce \(\vec{b}\) (as linear combination of columns of \(A\)).
+   \item <4->Function can be seen as an \alert{infinite dimensional vector}. Matrix A’s columns can be function
+  \end{itemize}
+\end{frame}
+
+\section{Matrix Times a Matrix}
+\begin{frame}
+  \frametitle{Matrix Times a Matrix}
+  \begin{itemize}
+    \item <2-> For a matrix product \(B = AC\), each column of \(B\) is a linear combination of the columns of \(A\).
+    \item <3-> To see this, write:
+    \begin{align*}\onslide<4->{AC 
+      &= \underbrace{\begin{bmatrix}a_{11} & a_{12} & \hdots & a_{1n}\\a_{21} & a_{22} & \hdots & a_{2n}\\\vdots & \vdots & \ddots & \vdots\\a_{m1} & a_{m2} & \hdots & a_{mn}\end{bmatrix}}_{m\times n}\underbrace{\begin{bmatrix}c_{11} & c_{12} & \hdots & c_{1k}\\c_{21} & c_{22} & \hdots & a_{2k}\\\vdots & \vdots & \ddots & \vdots\\c_{n1} & c_{n2} & \hdots & c_{nk}\end{bmatrix}}_{n\times k}}\\
+    \onslide<5->{B  &= \underbrace{\begin{bmatrix}\mathbf{b_1} \mid \mathbf{b_2} \mid \hdots \mid \mathbf{b_k}\end{bmatrix}}_{m\times k}}
+    \end{align*} 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Matrix Times a Matrix}
+  Then column \(\mathbf{b_i}\) is just 
+\begin{align*}\onslide<2->{\mathbf{b_i}
+    &= \begin{bmatrix}a_{11}c_{1i} + a_{12}c_{2i} + \hdots + a_{1n}c_{ni}\\a_{21}c_{1i} + a_{22}c_{2i} + \hdots + a_{2n}c_{ni}\\\vdots\\a_{m1}c_{1i} + a_{m2}c_{2i} + \hdots + a_{mn}c_{ni}\end{bmatrix}}\\
+    &\onslide<3->{= c_{1i}\begin{bmatrix}a_{11}\\a_{21}\\\vdots\\a_{m1}\end{bmatrix} + c_{2i}\begin{bmatrix}a_{12}\\a_{22}\\\vdots\\a_{m2}\end{bmatrix} + \hdots + c_{ni}\begin{bmatrix}a_{1n}\\a_{2n}\\\vdots\\a_{mn}\end{bmatrix}}\\
+    &\onslide<4->{= c_{1i}\mathbf{a_1} + c_{2i}\mathbf{a_2} + \hdots + c_{ni}\mathbf{a_n}}
+\end{align*}
+\end{frame}
+
+\section{Examples}
+\subsection{Outer Product}
+\begin{frame}
+  \frametitle{Outer Product}
+\begin{align*}\onslide<2->{\vec{u}\vec{v}^* 
+  &= \vec{u}\begin{bmatrix}\compconj{v_1} & \compconj{v_2} & \hdots & \compconj{v_n}\end{bmatrix}}\\
+  &\onslide<3->{= \begin{bmatrix}\compconj{v_1}\vec{u} & \compconj{v_2}\vec{u} & \hdots & \compconj{v_n}\vec{u}\end{bmatrix}}\\
+  &\onslide<4->{= \begin{bmatrix}u_1\compconj{v_1} & u_1\compconj{v_2} & \hdots & u_1\compconj{v_n}\\u_2\compconj{v_1} & u_2\compconj{v_2} & \hdots & u_2\compconj{v_n}\\\vdots & \vdots & \ddots & \vdots\\u_n\compconj{v_1} & u_n\compconj{v_2} & \hdots & u_n\compconj{v_n}\end{bmatrix}}
+\end{align*}
+\end{frame}
+\end{document}
