@@ -29,6 +29,7 @@
 \setbeamertemplate{itemize subitem}{\color{red}\(\blacktriangleright\)}
 \setbeamertemplate{navigation symbols}{}%remove navigation symbols
 \newcommand{\subitem}[1]{\begin{itemize}\item #1\end{itemize}}
+\newcommand{\ith}[1]{#1^{\text{th}}}
 %Information to be included in the title page:
 
 
@@ -36,8 +37,8 @@
 {COSC 6364 Adv. Numerical Analysis}
 
 \subtitle{Quiz 1 Prep}
-\author[Wu, Panruo] % (optional, for multiple authors)
-{P. ~Wu\inst{1}}
+\author[Khalid Hourani] % (optional, for multiple authors)
+{K. ~Hourani\inst{1}}
 
 \institute[VFU] % (optional)
 {
@@ -86,9 +87,21 @@
   \frametitle{Householder Reflector and QR factorization}
   \begin{itemize}[<+->]
     \item How does Householder reflector accomplish QR factorization?
+    \subitem{The Householder reflector \alert{introduces zeros} below the diagonal in the \(\ith{k}\) column while \alert{preserving all the zeroes previously introduced.}
+  \[\underset{A}{\begin{bmatrix}\times & \times & \times\\\times & \times & \times\\\times & \times & \times\\\times & \times & \times\\\times & \times & \times\\\end{bmatrix}}\overset{Q_1}{\to}
+    \underset{Q_1A}{\begin{bmatrix}\times & \times & \times\\\alert{0} & \times & \times\\\alert{0} & \times & \times\\\alert{0} & \times & \times\\\alert{0} & \times & \times\\\end{bmatrix}}\overset{Q_2}{\to}
+    \underset{Q_2Q_1A}{\begin{bmatrix}\times & \times & \times\\0 & \times & \times\\0 & \alert{0} & \times\\0 & \alert{0} & \times\\0 & \alert{0} & \times\\\end{bmatrix}}\overset{Q_3}{\to}
+    \underset{Q_3Q_2Q_1A}{\begin{bmatrix}\times & \times & \times\\0 & \times & \times\\0 & 0 & \times\\0 & 0 & \alert{0}\\0 & 0 & \alert{0}\\\end{bmatrix}}\] Then \[Q=Q_1Q_2\hdots Q_n\]\vspace{-5mm}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Householder Reflector and QR factorization}
+  \begin{itemize}[<+->]
     \item Given a vector \(\vec{x}\), what is the Householder reflector that maps \(\vec{x}\) to the first axis?
     \subitem{Write \(\vec{v} = \vec{x} + \norm{\vec{x}}\vec{e}_1\). Then the Householder reflector is \[I - 2\frac{\vec{v}\vec{v}^{\T}}{\vec{v}^{\T}\vec{v}}\] Equivalently, write \(\vec{u}=\frac{\vec{v}}{\norm{\vec{v}}}\) and our reflector is \[I - 2\vec{u}\vec{u}^{\T}\]\vspace{-5mm}}
     \item What’s the FLOP count of Householder QR factorization?
+    \subitem{\(2mn^2-\frac{2}{3}n^3\)}
   \end{itemize}
 \end{frame}
 
@@ -97,9 +110,9 @@
   \frametitle{Conditioning and Backward Stability}
   \begin{itemize}[<+->]
     \item What’s conditioning \& backward stability?
-    \subitem{Given a problem \(f\) with input \(\vec{x}\), write \(\delta \vec{x} = (1 + \delta)\vec{x}\) and \(\delta f=f\left(\delta \vec{x}\right) - f(\vec{x})\). The \alert{absolute condition number} of \(f\) is given by \[\lim_{\delta\to0}\sup_{\delta}\frac{\norm{\delta f}}{\norm{\delta \vec{x}}}\] The \alert{relative condition number} is given by \[\lim_{\delta\to0}\sup_{\delta}\frac{\norm{\delta f}/\norm{f}}{\norm{\delta \vec{x}}/\norm{\vec{x}}}\]\vspace{-4.5mm}}
+    \subitem{Given a problem \(f\) with input \(\vec{x}\), write \(\delta \vec{x} = (1 + \delta)\vec{x}\) and \(\delta f=f\left(\delta \vec{x}\right) - f(\vec{x})\). The \alert{absolute condition number} of \(f\) is given by \[\lim_{\delta\to0}\sup_{\delta}\frac{\norm{\delta f}}{\norm{\delta \vec{x}}}\] The \alert{relative condition number} is given by \[\lim_{\delta\to0}\sup_{\delta}\frac{\norm{\delta f}/\norm{f}}{\norm{\delta \vec{x}}/\norm{\vec{x}}}\]\vspace{-5mm}}
     % \subitem{An algorithm is \alert{stable} if, for every \(\vec{x}\), there exists a \(\perturb{\vec{x}}\) with \[\frac{\norm{\perturb{\vec{x}} - \vec{x}}}{\norm{\vec{x}}}=\bigO{\epsmach}\] such that \[\frac{\norm{\perturb{f}(\vec{x}) - f(\perturb{\vec{x}})}}{\norm{f(\perturb{\vec{x}})}}=\bigO{\epsmach}\]\vspace{-4.5mm}}
-    \subitem{An algorithm is \alert{backward stable} if, for every \(\vec{x}\), there exists an \(\perturb{\vec{x}}\) with \[\frac{\norm{\perturb{\vec{x}} - \vec{x}}}{\norm{\vec{x}}}=\bigO{\epsmach}\] such that \[\perturb{f}(\vec{x}) = f(\perturb{\vec{x}})\]\vspace{-4.5mm}}
+    \subitem{An algorithm is \alert{backward stable} if, for every \(\vec{x}\), there exists an \(\perturb{\vec{x}}\) with \[\frac{\norm{\perturb{\vec{x}} - \vec{x}}}{\norm{\vec{x}}}=\bigO{\epsmach}\] such that \[\perturb{f}(\vec{x}) = f(\perturb{\vec{x}})\]}
   \end{itemize}
 \end{frame}
 
@@ -107,12 +120,16 @@
   \frametitle{Conditioning and Backward Stability}
   \begin{itemize}[<+->]
     \item Why is forward error bounded by backward error times \(\kappa\)?
-  \subitem{\begin{align*}\frac{\norm{\perturb{f}(\vec{x}) - f(\perturb{\vec{x}})}}{\norm{f(\perturb{\vec{x})}}} &= \frac{\norm{\perturb{f}(\vec{x}) - f(\perturb{\vec{x}})}/\norm{f(\perturb{\vec{x}})}}{\norm{\perturb{\vec{x}} - \vec{x}}/\norm{\vec{x}}}\cdot \frac{\norm{\perturb{\vec{x}} - \vec{x}}}{\norm{\vec{x}}}\\&\leq \kappa \frac{\norm{\perturb{\vec{x}} - \vec{x}}}{\norm{\vec{x}}}\end{align*}}
+  \subitem{This follows from the definitions of forward error and \(\kappa\): \begin{align*}\frac{\norm{\perturb{f}(\vec{x}) - f(\perturb{\vec{x}})}}{\norm{f(\perturb{\vec{x})}}} &= \frac{\norm{\perturb{f}(\vec{x}) - f(\perturb{\vec{x}})}/\norm{f(\perturb{\vec{x}})}}{\norm{\perturb{\vec{x}} - \vec{x}}/\norm{\vec{x}}}\cdot \frac{\norm{\perturb{\vec{x}} - \vec{x}}}{\norm{\vec{x}}}\\&\leq \kappa \frac{\norm{\perturb{\vec{x}} - \vec{x}}}{\norm{\vec{x}}}\end{align*}\vspace{-4mm}}
     \item Is the simple running sum algorithm for computing inner product of two vectors \(\vec{x}^{\T}\vec{y} = \sum_{i=1}^n x_i y_i\) backward stable?
-  \subitem{Yes. Let \(f\) denote the inner product and \(\perturb{f}\) its computation by running sum. Then 
+  \subitem{Yes. Let \(f\) denote the inner product and \(\perturb{f}\) its computation by running sum. When \(n = 2\), we have 
   \begin{align*}\perturb{f}\left(\vec{x}, \vec{y}\right)
-    &= x_1 \otimes y_1 \oplus x_2 \otimes y_2 \oplus \hdots \oplus x_n \otimes y_n\\
-    &= \left(x_1y_1\right)\left(1 + \epsilon_1\right) \oplus \left(x_2y_2\right)\left(1 + \epsilon_2\right) \oplus \hdots \oplus \left(x_ny_n\right)\left(1 + \epsilon_n\right)
+    &= x_1 \otimes y_1 \oplus x_2 \otimes y_2\\
+    &= \left(x_1y_1\right)\left(1 + \epsilon_1\right) \oplus \left(x_2y_2\right)\left(1 + \epsilon_2\right)\\
+    &= \left[\left(x_1y_1\right)\left(1 + \epsilon_1\right) + \left(x_2y_2\right)\left(1 + \epsilon_2\right)\right](1 + \epsilon_3)\\
+    &= (x_1y_1 + x_2y_2 + x_1y_1\epsilon_1 + x_2y_2\epsilon_2)(1 + \epsilon_3)\\
+    &= x_1y_1 + x_2y_2 + x_1y_1\epsilon_1 + x_2y_2\epsilon_2 + x_1y_1\epsilon_3 + x_2y_2\epsilon_3 + x_1y_1\epsilon_1\epsilon_3 + x_2y_2\epsilon_2\epsilon_3\\
+    &= \alert{\text{this is unfinished because these proofs are the worst}}
   \end{align*}}
   \end{itemize}
 \end{frame}
@@ -122,7 +139,10 @@
     \frametitle{LU factorization}
     \begin{itemize}[<+->]
       \item How to use LU factorization to solve a linear system?
+      \subitem{To solve \(A\vec{x} = \vec{b}\), solve \(L\vec{y} = \vec{b}\) for \(\vec{y}\) then solve \(U\vec{x} = \vec{y}\) for \(\vec{x}\).}
+      \subitem{A better solution is to write \(PA = LU\) for a permutation matrix \(P\). Now, solve \(L\vec{y} = P\vec{b}\) for \(\vec{y}\) then solve \(U\vec{x} = \vec{y}\) for \(\vec{x}\).}
       \item How to use LU factorization to invert a square non-singular matrix A?
+    \subitem{Solve \(LU\vec{x}_i=\vec{e}_i\) for all \(i\). Then \(A^{-1}=\begin{bmatrix}\vec{x}_1 & \vec{x}_2 & \hdots & \vec{x}_n\end{bmatrix}\).}
       \item What’s the cost of LU factorization? How does it compare to Householder QR factorization on the same matrix?
     \end{itemize}
   \end{frame}
@@ -132,8 +152,11 @@
   \frametitle{QR Algorithm for Eigenvalue Decomposition}
   \begin{itemize}[<+->]
     \item How does QR algorithm work?
+  \subitem{Begin with matrix \(A^{(0)} = A\) and, for \(k = 1, 2, \hdots\), write \begin{align*}Q^{(k)}R^{(k)} &= A^{(k-1)}\\A^{(k)} &= R^{(k)}Q^{(k)}\end{align*} This converges to an upper triangular matrix with eigenvalues along the diagonal.}
     \item What’s the cost of one iteration in QR algorithm?
+    \subitem{If we run it on \(A\) directly, it is \(\bigO{m^3}\) flops. If instead we perform it on \(H\), the reduced Hessenberg form of \(A\) (\(\frac{10}{3}m^3\) flops), each phase is \(\bigO{m^2}\) flops.}
     \item What’s the convergence rate of QR algorithm?
+    \subitem{Without shifting, the QR algorithm exhibits linear convergence. With shifting, it exhibits cubic convergence.}
   \end{itemize}
 \end{frame}
 \end{document}
