@@ -1,0 +1,139 @@
+\documentclass[10pt]{beamer}
+\usefonttheme[onlymath]{serif}
+\usepackage[utf8]{inputenc}
+% \AtBeginSection[]
+% {
+%   \begin{frame}
+%     \frametitle{Table of Contents}
+%     \tableofcontents[currentsection]
+%   \end{frame}
+% }
+\usetheme{Berkeley}
+\usepackage{mleftright}
+\mleftright
+
+\usepackage{tikzsymbols}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\proj}[2]{\operatorname{proj}_{#2}\left(#1\right)}
+\newcommand{\dotprod}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\compconj}[1]{\overline{#1}}
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\bigO}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\perturb}[1]{\tilde{#1}}
+\newcommand{\epsmach}{\epsilon_{\text{machine}}}
+\newcommand{\range}[1]{\operatorname{range}\left(#1\right)}
+\setbeamertemplate{itemize subitem}{\color{red}\(\blacktriangleright\)}
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+\newcommand{\subitem}[1]{\begin{itemize}\item #1\end{itemize}}
+%Information to be included in the title page:
+
+
+\title[COSC6364 Adv. Numerical Analysis] %optional
+{COSC 6364 Adv. Numerical Analysis}
+
+\subtitle{Quiz 1 Prep}
+\author[Wu, Panruo] % (optional, for multiple authors)
+{P. ~Wu\inst{1}}
+
+\institute[VFU] % (optional)
+{
+  \inst{1}%
+  Computer Science\\
+  University of Houston
+  % \and
+  % \inst{2}%
+  % Faculty of Chemistry\\
+  % Very Famous University
+}
+
+\date[Spring 2020] % (optional)
+{Spring 2020}
+
+\logo{\includegraphics[height=0.5cm]{../nsm-computer-science-primary.png}}
+%\setbeamercovered{transparent}
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+  \frametitle{Table of Contents}
+  \tableofcontents
+\end{frame}
+
+\section{Orthogonal Projector}
+\begin{frame}
+  \frametitle{Orthogonal Projector}
+  \begin{itemize}[<+->]
+    \item What is an orthogonal projector?
+    \subitem{An orthogonal projector is a matrix \(P\) such that \(P^2 = P\) and \(P^*=P\).}
+    \item What is an orthogonal matrix?
+    \subitem{A real matrix \(Q\) is orthogonal if \(QQ^{\T} = Q^{\T}Q=I\).}
+    \item Suppose we have a unit vector \(\vec{v}\). What is the orthogonal projector that projects to \(\range{\vec{v}}\)?
+    \subitem{The matrix \(\vec{v}\vec{v}^{\T}\) projects onto \(\range{\vec{v}}\), since \begin{align*}\vec{v}\vec{v}^{\T}\vec{x}&=\vec{v}\left(\vec{v}^{\T}\vec{x}\right)\\&=\dotprod{\vec{v}}{\vec{x}}\vec{v}\end{align*}\vspace{-5mm}}
+    \item Suppose we have an ortho-normal matrix \(Q\) (with orthogonal and normalized columns). What is the orthogonal projector that projects to \(\range{Q}\)?
+    \subitem{The matrix \(QQ^{\T}\) projects onto \(\range{Q}\).}
+    \item Suppose we have a matrix \(A\). What is the orthogonal projector that projects to \(\range{A}\)?
+    \subitem{The matrix \(A(A^{\T}A)^{-1}A^{\T}\) projects onto \(\range{A}\).}
+  \end{itemize}
+\end{frame}
+
+\section{Householder Reflector and QR factorization}
+\begin{frame}
+  \frametitle{Householder Reflector and QR factorization}
+  \begin{itemize}[<+->]
+    \item How does Householder reflector accomplish QR factorization?
+    \item Given a vector \(\vec{x}\), what is the Householder reflector that maps \(\vec{x}\) to the first axis?
+    \subitem{Write \(\vec{v} = \vec{x} + \norm{\vec{x}}\vec{e}_1\). Then the Householder reflector is \[I - 2\frac{\vec{v}\vec{v}^{\T}}{\vec{v}^{\T}\vec{v}}\] Equivalently, write \(\vec{u}=\frac{\vec{v}}{\norm{\vec{v}}}\) and our reflector is \[I - 2\vec{u}\vec{u}^{\T}\]\vspace{-5mm}}
+    \item What’s the FLOP count of Householder QR factorization?
+  \end{itemize}
+\end{frame}
+
+\section{Conditioning and Backward Stability}
+\begin{frame}
+  \frametitle{Conditioning and Backward Stability}
+  \begin{itemize}[<+->]
+    \item What’s conditioning \& backward stability?
+    \subitem{Given a problem \(f\) with input \(\vec{x}\), write \(\delta \vec{x} = (1 + \delta)\vec{x}\) and \(\delta f=f\left(\delta \vec{x}\right) - f(\vec{x})\). The \alert{absolute condition number} of \(f\) is given by \[\lim_{\delta\to0}\sup_{\delta}\frac{\norm{\delta f}}{\norm{\delta \vec{x}}}\] The \alert{relative condition number} is given by \[\lim_{\delta\to0}\sup_{\delta}\frac{\norm{\delta f}/\norm{f}}{\norm{\delta \vec{x}}/\norm{\vec{x}}}\]\vspace{-4.5mm}}
+    % \subitem{An algorithm is \alert{stable} if, for every \(\vec{x}\), there exists a \(\perturb{\vec{x}}\) with \[\frac{\norm{\perturb{\vec{x}} - \vec{x}}}{\norm{\vec{x}}}=\bigO{\epsmach}\] such that \[\frac{\norm{\perturb{f}(\vec{x}) - f(\perturb{\vec{x}})}}{\norm{f(\perturb{\vec{x}})}}=\bigO{\epsmach}\]\vspace{-4.5mm}}
+    \subitem{An algorithm is \alert{backward stable} if, for every \(\vec{x}\), there exists an \(\perturb{\vec{x}}\) with \[\frac{\norm{\perturb{\vec{x}} - \vec{x}}}{\norm{\vec{x}}}=\bigO{\epsmach}\] such that \[\perturb{f}(\vec{x}) = f(\perturb{\vec{x}})\]\vspace{-4.5mm}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conditioning and Backward Stability}
+  \begin{itemize}[<+->]
+    \item Why is forward error bounded by backward error times \(\kappa\)?
+  \subitem{\begin{align*}\frac{\norm{\perturb{f}(\vec{x}) - f(\perturb{\vec{x}})}}{\norm{f(\perturb{\vec{x})}}} &= \frac{\norm{\perturb{f}(\vec{x}) - f(\perturb{\vec{x}})}/\norm{f(\perturb{\vec{x}})}}{\norm{\perturb{\vec{x}} - \vec{x}}/\norm{\vec{x}}}\cdot \frac{\norm{\perturb{\vec{x}} - \vec{x}}}{\norm{\vec{x}}}\\&\leq \kappa \frac{\norm{\perturb{\vec{x}} - \vec{x}}}{\norm{\vec{x}}}\end{align*}}
+    \item Is the simple running sum algorithm for computing inner product of two vectors \(\vec{x}^{\T}\vec{y} = \sum_{i=1}^n x_i y_i\) backward stable?
+  \subitem{Yes. Let \(f\) denote the inner product and \(\perturb{f}\) its computation by running sum. Then 
+  \begin{align*}\perturb{f}\left(\vec{x}, \vec{y}\right)
+    &= x_1 \otimes y_1 \oplus x_2 \otimes y_2 \oplus \hdots \oplus x_n \otimes y_n\\
+    &= \left(x_1y_1\right)\left(1 + \epsilon_1\right) \oplus \left(x_2y_2\right)\left(1 + \epsilon_2\right) \oplus \hdots \oplus \left(x_ny_n\right)\left(1 + \epsilon_n\right)
+  \end{align*}}
+  \end{itemize}
+\end{frame}
+
+\section{LU factorization}
+\begin{frame}
+    \frametitle{LU factorization}
+    \begin{itemize}[<+->]
+      \item How to use LU factorization to solve a linear system?
+      \item How to use LU factorization to invert a square non-singular matrix A?
+      \item What’s the cost of LU factorization? How does it compare to Householder QR factorization on the same matrix?
+    \end{itemize}
+  \end{frame}
+
+\section{QR Algorithm for Eigenvalue Decomposition}
+\begin{frame}
+  \frametitle{QR Algorithm for Eigenvalue Decomposition}
+  \begin{itemize}[<+->]
+    \item How does QR algorithm work?
+    \item What’s the cost of one iteration in QR algorithm?
+    \item What’s the convergence rate of QR algorithm?
+  \end{itemize}
+\end{frame}
+\end{document}
